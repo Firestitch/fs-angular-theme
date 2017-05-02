@@ -1,9 +1,8 @@
 {
-  "name": "fs-angular", 
+  "name": "fs-angular-theme",
   "description": "",
   "main": [
-    "dist/.js",
-    "dist/.css"
+    "dist/theme.js"
   ],
   "authors": [
     "Firestitch Inc."
