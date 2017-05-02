@@ -24,15 +24,15 @@
 							'200': 'fff',
 							'300': 'fff',
 							'400': 'fff',
-							'500': options.accent, //accent color
-							'600': ColorLuminance(options.accent,.25), //accent hover
+							'500': options.primary, //primary color
+							'600': ColorLuminance(options.primary,.25), //primary hover
 							'700': 'fff',
 							'800': 'fff',
 							'900': 'fff',
 							'A100': 'fff',
-							'A200': options.primary, //primary color
+							'A200': options.accent, //accent color
 							'A400': 'fff',
-							'A700': ColorLuminance(options.primary,.25), //primary hover
+							'A700': ColorLuminance(options.accent,.25), //accent hover
 							'contrastDefaultColor': 'light',
 							'contrastLightColors': ['600', '700', '800', '900']
 							});
