@@ -1,5 +1,7 @@
 
 
+
+
 (function() {
 
     'use strict';
@@ -16,6 +18,9 @@
         this.options = function(options) {
         	options = options || {};
         	options.progressPercent = options.progressPercent || .8
+
+        	options.primary = '#' + options.primary.replace(/^#/);
+        	options.accent = '#' + options.accent.replace(/^#/);
 
 			$mdThemingProvider
 			.definePalette('default', {
@@ -43,7 +48,9 @@
 
 			var style = document.createElement('style');
 			style.type = 'text/css';
-			style.innerHTML = '#loading-bar .bar {background: ' + ColorLuminance(options.accent,options.progressPercent) + ';}';
+			style.innerHTML = 	'#loading-bar .bar {background: ' + ColorLuminance(options.accent,options.progressPercent) + ';}' +
+								'#loading-bar .peg { box-shadow: #ccc 1px 0 6px 1px !important; }' +
+								'.fs-validate-submit-loader div { border-top-color: ' + options.primary + ' !important; }';
 			document.getElementsByTagName('head')[0].appendChild(style);
         }
 
@@ -72,8 +79,6 @@
         };
     });
 })();
-
-
 angular.module('fs-angular-theme').run(['$templateCache', function($templateCache) {
   'use strict';
 
