@@ -49,9 +49,9 @@
 			style.innerHTML = 	'#loading-bar .bar {background: ' + ColorLuminance(options.accent,options.progressPercent) + '}' +
 								'#loading-bar .peg {box-shadow: #ccc 1px 0 6px 1px !important}' +
 								'.fs-validate-submit-loader div {border-top-color: ' + options.primary + ' !important}' +
-								'.fs-theme-primary-background-color {background-color:' + options.primary + '}' +
-								'.fs-theme-primary-color {color:' + options.primary + '}' +
-								'.fs-theme-primary-border-color {border-color:' + options.primary + '}';
+								'.fs-theme-primary-background-color {background-color:' + options.primary + ' !important}' +
+								'.fs-theme-primary-color {color:' + options.primary + ' !important}' +
+								'.fs-theme-primary-border-color {border-color:' + options.primary + ' !important}';
 
 			document.getElementsByTagName('head')[0].appendChild(style);
         }
