@@ -1,7 +1,5 @@
 
 
-
-
 (function() {
 
     'use strict';
@@ -13,14 +11,18 @@
 
     angular.module('fs-angular-theme',[])
     .provider('fsTheme', function($mdThemingProvider) {
-        var provider = this;
+        var self = this;
+        var options = {};
+        this.options = function(opts) {
 
-        this.options = function(options) {
-        	options = options || {};
+        	if(opts) {
+        		angular.extend(options,opts);
+        	}
+
         	options.progressPercent = options.progressPercent || .8
 
-        	options.primary = '#' + options.primary.replace(/^#/);
-        	options.accent = '#' + options.accent.replace(/^#/);
+        	options.primary = options.primary.replace(/^#/);
+        	options.accent = options.accent.replace(/^#/);
 
 			$mdThemingProvider
 			.definePalette('default', {
@@ -29,8 +31,8 @@
 							'200': 'fff',
 							'300': 'fff',
 							'400': 'fff',
-							'500': options.primary, //primary color
-							'600': ColorLuminance(options.primary,.25), //primary hover
+							'500': primaryHex(), //primary color
+							'600': ColorLuminance(primaryHex(),.25), //primary hover
 							'700': 'fff',
 							'800': 'fff',
 							'900': 'fff',
@@ -50,10 +52,13 @@
 			style.type = 'text/css';
 			style.innerHTML = 	'#loading-bar .bar {background: ' + ColorLuminance(options.accent,options.progressPercent) + '}' +
 								'#loading-bar .peg {box-shadow: #ccc 1px 0 6px 1px !important}' +
-								'.fs-validate-submit-loader div {border-top-color: ' + options.primary + ' !important}' +
-								'.fs-theme-primary-background-color {background-color:' + options.primary + ' !important}' +
-								'.fs-theme-primary-color {color:' + options.primary + ' !important}' +
-								'.fs-theme-primary-border-color {border-color:' + options.primary + ' !important}';
+								'.fs-validate-submit-loader div {border-top-color: ' + primaryHex() + ' !important}' +
+								'.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a { background-color: ' + primaryRGBa(.15) + ' }' +
+								'.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a { color: ' + primaryHex() + ' }' +
+								'.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a md-icon { color: ' + primaryHex() + ' }' +
+								'.fs-theme-primary-background-color {background-color:' + primaryHex() + ' !important}' +
+								'.fs-theme-primary-color {color:' + primaryHex() + ' !important}' +
+								'.fs-theme-primary-border-color {border-color:' + primaryHex() + ' !important}';
 
 			document.getElementsByTagName('head')[0].appendChild(style);
         }
@@ -79,8 +84,30 @@
 		}
 
         this.$get = function() {
-            return {};
+            return {
+            	primary: primary,
+            	primaryHex: primaryHex,
+            	primaryRGBa: primaryRGBa
+            };
         };
+
+        function primaryRGBa(percent) {
+        	var bigint = parseInt(options.primary, 16);
+		    var parts = [	(bigint >> 16) & 255,
+		    				(bigint >> 8) & 255,
+		    				bigint & 255,
+		    				percent];
+			return 'rgba(' + parts.join(',') +')'
+
+        }
+
+        function primaryHex() {
+        	return '#' + options.primary;
+        }
+
+        function primary() {
+        	return options.primary;
+        }
     });
 })();
 angular.module('fs-angular-theme').run(['$templateCache', function($templateCache) {
